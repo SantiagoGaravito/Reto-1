@@ -98,13 +98,41 @@ def printSortResults(sort_jobs, sample=3):
 
             print("\n")
             print("Los", sample, "últimos jobs ordenados son: ==========================================")
-            i = size - sample + 1
-            while i <= size:
+            i = size
+            while i >= size - sample + 1 and i > 0:
                 job = lt.get_element(sort_jobs, i)
+                print("Título de la oferta:", job["title"], "Fecha de publicación:", job["published_at"],
+                      "Nombre de la empresa que publica:", job["company_name"], "Nivel de experticia de la oferta:", job["experience_level"], 
+                      "País de la oferta:", job["country_code"], "Ciudad de la oferta:", job["city"])
+                i -= 1
+        
+       
+# Imprimir Resultados published_at, title, company_name, experience_level, country_code, city
+def printSortResultsN(sort_jobs, sample):
+    if lt.isEmpty(sort_jobs):
+        print("La lista esta vacia!!!...")
+    else:
+        size = lt.size(sort_jobs)
+        if size <= sample*2:
+            print("\n")
+            print("Los", size, "Jobs ordenados son: ==========================================")
+            for job in lt.iterator(sort_jobs):
                 print("Título de la oferta:", job["title"], "Fecha de publicación:", job["published_at"],
                       "Nombre de la empresa que publica:", job["company_name"], "Nivel de experticia de la oferta:", job["experience_level"],
                       "País de la oferta:", job["country_code"], "Ciudad de la oferta:", job["city"])
-                i += 1
+        else:
+            print("\n")
+            print("Los", sample, "últimos jobs ordenados son: ==========================================")
+            
+            i = size
+            while i >= size - sample + 1 and i > 0:
+                job = lt.get_element(sort_jobs, i)
+                print("Título de la oferta:", job["title"], "Fecha de publicación:", job["published_at"],
+                      "Nombre de la empresa que publica:", job["company_name"], "Nivel de experticia de la oferta:", job["experience_level"], 
+                      "País de la oferta:", job["country_code"], "Ciudad de la oferta:", job["city"])
+                i -= 1
+
+        
                 
 def print_data(control, id):
     """
@@ -206,7 +234,11 @@ if __name__ == "__main__":
             num_ofertas = input("Ingrese el numero de ofertas: ")
             num_ofertas = int(num_ofertas)
             cod_pais = input("Ingrese el codigo del pais: ")
-            nivel = input("Ingrese el nivel de experticia: ")
+            nivel = input("Ingrese el nivel de experticia entre (junior, mid, o senior): ")
+            
+            result = controller.sortJobs(control)
+            size = lt.size(result)
+            printSortResultsN(result, num_ofertas)
             print_req_1(control)
 
         elif int(inputs) == 3:
