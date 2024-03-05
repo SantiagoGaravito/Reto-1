@@ -36,18 +36,33 @@ def new_controller():
     Crea una instancia del modelo
     """
     #TODO: Llamar la función del modelo que crea las estructuras de datos
-    pass
+    control = {
+        "model": None
+    }
+    control["model"] = model.new_Offers()
+    return control
 
 
 # Funciones para la carga de datos
 
-def load_data(control, filename):
+def load_data(control):
     """
     Carga los datos del reto
     """
-    # TODO: Realizar la carga de datos
-    pass
+    offers = control["model"]
+    jobs = loadJobs(offers)
+    return jobs
 
+def loadJobs(offers):
+    """
+    Carga los jobs archivo.  
+    """
+    # TODO cambiar nombre del archivo (parte 1)
+    jobsfile = cf.data_dir + "small-jobs.csv"
+    input_file = csv.DictReader(open(jobsfile, encoding="utf-8"), delimiter=';')
+    for job in input_file:
+        model.addJob(offers, job)
+    return model.jobSize(offers)
 
 # Funciones de ordenamiento
 

@@ -42,8 +42,8 @@ def new_controller():
     """
         Se crea una instancia del controlador
     """
-    #TODO: Llamar la función del controlador donde se crean las estructuras de datos
-    pass
+    control = controller.new_controller()
+    return control
 
 
 def print_menu():
@@ -60,12 +60,12 @@ def print_menu():
     print("0- Salir")
 
 
-def load_data(control):
+def load_data():
     """
     Carga los datos
     """
-    #TODO: Realizar la carga de datos
-    pass
+    jobs = controller.load_data(control)
+    return jobs
 
 
 def print_data(control, id):
@@ -154,7 +154,9 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 1:
             print("Cargando información de los archivos ....\n")
-            data = load_data(control)
+            job_print = load_data()
+            print("Jobs cargados: " + str(job_print))
+            #data = load_data()
         elif int(inputs) == 2:
             print_req_1(control)
 

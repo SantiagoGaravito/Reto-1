@@ -26,7 +26,7 @@
 
 
 import config as cf
-from DISClib.ADT import list as lt
+#from DISClib.ADT import list as lt
 from DISClib.ADT import stack as st
 from DISClib.ADT import queue as qu
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -35,6 +35,8 @@ from DISClib.Algorithms.Sorting import selectionsort as se
 from DISClib.Algorithms.Sorting import mergesort as merg
 from DISClib.Algorithms.Sorting import quicksort as quk
 assert cf
+import csv
+import model
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá
@@ -42,25 +44,59 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 """
 
 # Construccion de modelos
+import array_list as lt
 
+def new_Offers():
+    """
+    Inicializa Jobs. Crea una lista vacia para guardar
+    todos los jobs
+    """
+    offers = {"jobs": None,
+              "skills": None,
+              "multilocations": None,
+              "employments_types": None}
 
-def new_data_structs():
-    """
-    Inicializa las estructuras de datos del modelo. Las crea de
-    manera vacía para posteriormente almacenar la información.
-    """
-    #TODO: Inicializar las estructuras de datos
-    pass
+    offers["jobs"] = lt.new_list()
+    #offers["skills"] = lt.new_list()
+    #offers["multilocations"] = lt.new_list()
+    #offers["employments_types"] = lt.new_list()
+
+    return offers
+
 
 
 # Funciones para agregar informacion al modelo
 
-def add_data(data_structs, data):
-    """
-    Función para agregar nuevos elementos a la lista
-    """
-    #TODO: Crear la función para agregar elementos a una lista
-    pass
+
+
+def jobSize(offers):
+    return lt.size(offers["jobs"])
+
+# Funciones para agregar informacion al catalogo
+
+def addJob(offers, job):
+   """
+   Adiciona un job a la lista de jobs
+   """
+   t = newJob(job["published_at"], job["title"], job["company_name"], job["experience_level"], job["country_code"], job["city"])
+   lt.add_last(offers["jobs"], t)
+   return offers
+
+
+def newJob(published_at, title, company_name, experience_level, country_code, city ):
+   """
+   Esta estructura almancena los jobs.
+   """
+   job = {"published_at": "", "title": "", "company_name": "", "experience_level": "", "country_code": "", "city": ""}
+   job["published_at"] = published_at
+   job["title"] = title
+   job["company_name"] = company_name
+   job["experience_level"] = experience_level
+   job["country_code"] = country_code
+   job["city"] = city
+   return job
+
+
 
 
 # Funciones para creacion de datos
