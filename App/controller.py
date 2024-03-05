@@ -35,7 +35,6 @@ def new_controller():
     """
     Crea una instancia del modelo
     """
-    #TODO: Llamar la función del modelo que crea las estructuras de datos
     control = {
         "model": None
     }
@@ -57,7 +56,6 @@ def loadJobs(offers):
     """
     Carga los jobs archivo.  
     """
-    # TODO cambiar nombre del archivo (parte 1)
     jobsfile = cf.data_dir + "small-jobs.csv"
     input_file = csv.DictReader(open(jobsfile, encoding="utf-8"), delimiter=';')
     for job in input_file:
@@ -73,19 +71,7 @@ def sort(control):
     #TODO: Llamar la función del modelo para ordenar los datos
     pass
 
-def sortJobs(control):
-    sorted_list = model.sortJobs(control["model"])
-    return sorted_list
 
-# Funciones de consulta sobre el catálogo
-
-
-def ofertaPaisNivel(control, num_ofertas, cod_pais, nivel):
-    """
-    Retrona los libros de un autor
-    """
-    jobs = model.ofertaPaisNivel(control["model"],  num_ofertas, cod_pais, nivel)
-    return jobs
 
 def get_data(control, id):
     """
