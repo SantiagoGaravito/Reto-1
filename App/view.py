@@ -50,6 +50,7 @@ def new_controller():
 control = new_controller()
 
 def print_menu():
+    print("==========================================")
     print("Bienvenido")
     print("1- Cargar información")
     print("2- Ejecutar Requerimiento 1")
@@ -61,6 +62,7 @@ def print_menu():
     print("8- Ejecutar Requerimiento 7")
     print("9- Ejecutar Requerimiento 8")
     print("0- Salir")
+    print("==========================================")
 
 
 def load_data():
@@ -77,13 +79,15 @@ def printSortResults(sort_jobs, sample=3):
     else:
         size = lt.size(sort_jobs)
         if size <= sample*2:
-            print("Los", size, "Jobs ordenados son:")
+            print("\n")
+            print("Los", size, "Jobs ordenados son: ==========================================")
             for job in lt.iterator(sort_jobs):
                 print("Título de la oferta:", job["title"], "Fecha de publicación:", job["published_at"],
                       "Nombre de la empresa que publica:", job["company_name"], "Nivel de experticia de la oferta:", job["experience_level"],
                       "País de la oferta:", job["country_code"], "Ciudad de la oferta:", job["city"])
         else:
-            print("Los", sample, "primeros libros ordenados son:")
+            print("\n")
+            print("Los", sample, "primeros jobs ordenados son: ==========================================")
             i = 1
             while i <= sample:
                 job = lt.get_element(sort_jobs, i)
@@ -92,7 +96,8 @@ def printSortResults(sort_jobs, sample=3):
                       "País de la oferta:", job["country_code"], "Ciudad de la oferta:", job["city"])
                 i += 1
 
-            print("Los", sample, "últimos jobs ordenados son:")
+            print("\n")
+            print("Los", sample, "últimos jobs ordenados son: ==========================================")
             i = size - sample + 1
             while i <= size:
                 job = lt.get_element(sort_jobs, i)
@@ -187,13 +192,13 @@ if __name__ == "__main__":
         if int(inputs) == 1:
             print("Cargando información de los archivos ....\n")
             job_print, skill_print, employments_types_print, multilocations_print= load_data()
+            print("==========================================")
             print("Jobs cargados: " + str(job_print))
             print("Skills cargados: " + str(skill_print))
             print("Employments Types cargados: " + str(employments_types_print))
             print("Multilocations cargados: " + str(multilocations_print))
-            
+            print("==========================================")
             result = controller.sortJobs(control)
-            #sorted_list = result[1]
             size = lt.size(result)
             printSortResults(result)
             

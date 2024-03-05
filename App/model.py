@@ -39,6 +39,7 @@ import csv
 from datetime import datetime
 
 
+
 """
 Se define la estructura de los jobs
 """
@@ -69,7 +70,7 @@ def newJob(published_at, title, company_name, experience_level, country_code, ci
    Esta estructura almancena los jobs.
    """
    job = {"published_at": "", "title": "", "company_name": "", "experience_level": "", "country_code": "", "city": ""}
-   job["published_at"] = published_at
+   job["published_at"] = datetime.fromisoformat(published_at.replace('Z', '+00:00'))
    job["title"] = title
    job["company_name"] = company_name
    job["experience_level"] = experience_level
@@ -165,7 +166,7 @@ def sortJobs(offers):
     """
     # toma la lista jobs
     jobs = offers["jobs"]
-    # ordena la lista de libros
+    # ordena la lista de jobs
     sorted_list = lt.shell_sort(jobs, compareValue)
     # actualiza la lista de libros del catalogo
     offers["jobs"] = sorted_list
@@ -175,7 +176,13 @@ def compareValue(job1, job2):
     """
     compara dos jobs por title
     """
-    return (str(job1["title"]) > str(job2["title"]))
+    return ((job1["published_at"]) < (job2["published_at"]))
+
+def convertir_fecha(offers):
+    # Convierte la cadena de fecha en un objeto datetime para comparar
+    jobs = offers["jobs"]
+    return datetime.strptime(jobs['published_at'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
 
 # Funciones para creacion de datos
 
