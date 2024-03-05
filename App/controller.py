@@ -50,7 +50,10 @@ def load_data(control):
     """
     offers = control["model"]
     jobs = loadJobs(offers)
-    return jobs
+    skills = loadSkills(offers)
+    employments_types = loadEmployments_types(offers)
+    multilocations = loadMultilocations(offers)
+    return jobs, skills, employments_types, multilocations
 
 def loadJobs(offers):
     """
@@ -61,6 +64,28 @@ def loadJobs(offers):
     for job in input_file:
         model.addJob(offers, job)
     return model.jobSize(offers)
+
+def loadSkills(offers):
+    skillsfile = cf.data_dir + "small-skills.csv"
+    input_file = csv.DictReader(open(skillsfile, encoding="utf-8"), delimiter=';', fieldnames=["name", "level", "title"])
+    for skill in input_file:
+        model.addSkill(offers, skill)
+    return model.skillSize(offers)
+
+def loadEmployments_types(offers):
+    employments_typesfile = cf.data_dir + "small-employments_types.csv"
+    input_file = csv.DictReader(open(employments_typesfile, encoding="utf-8"), delimiter=';', fieldnames=["type", "title", "currency_salary", "salary_from", "salary_to"])
+    for employment_type in input_file:
+        model.addEmployment_type(offers, employment_type)
+    return model.employment_typeSize(offers)
+
+
+def loadMultilocations(offers):
+    multilocationsfile = cf.data_dir + "small-multilocations.csv"
+    input_file = csv.DictReader(open(multilocationsfile, encoding="utf-8"), delimiter=';', fieldnames=["city", "street", "title"])
+    for multilocatio in input_file:
+        model.addMultilocation(offers, multilocatio)
+    return model.multilocationSize(offers)
 
 # Funciones de ordenamiento
 

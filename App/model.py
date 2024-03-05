@@ -57,9 +57,9 @@ def new_Offers():
               "employments_types": None}
 
     offers["jobs"] = lt.new_list()
-    #offers["skills"] = lt.new_list()
-    #offers["multilocations"] = lt.new_list()
-    #offers["employments_types"] = lt.new_list()
+    offers["skills"] = lt.new_list()
+    offers["multilocations"] = lt.new_list()
+    offers["employments_types"] = lt.new_list()
 
     return offers
 
@@ -77,6 +77,39 @@ def newJob(published_at, title, company_name, experience_level, country_code, ci
    job["city"] = city
    return job
 
+def newSkill(name, level, title):
+   """
+   Esta estructura almancena los jobs.
+   """
+   skill = {"name": "", "level": "", "title": ""}
+   skill["name"] = name
+   skill["level"] = level
+   skill["title"] = title
+   return skill
+
+def newEmployment_type(type, title, currency_salary, salary_from, salary_to):
+   """
+   Esta estructura almancena los jobs. "type", "title", "currency_salary", "salary_from", "salary_to"
+   """
+   employment_type = {"type": "", "title": "", "currency_salary": "", "salary_from": "", "salary_to": ""}
+   employment_type["type"] = type
+   employment_type["title"] = title
+   employment_type["currency_salary"] = currency_salary
+   employment_type["salary_from"] = salary_from
+   employment_type["salary_to"] = salary_to
+   return employment_type
+
+
+def newMultilocation(city, street, title):
+   """
+   Esta estructura almancena los "city", "street", "title"
+   """
+   multilocation = {"city": "", "street": "", "title": ""}
+   multilocation["city"] = city
+   multilocation["street"] = street
+   multilocation["title"] = title
+   return multilocation
+
 def addJob(offers, job):
    """
    Adiciona un job a la lista de jobs
@@ -85,8 +118,43 @@ def addJob(offers, job):
    lt.add_last(offers["jobs"], t)
    return offers
 
+def addSkill(offers, skill):
+   """
+   Adiciona un skill a la lista de skills  "name", "level", "title"
+   """
+   t = newSkill(skill["name"], skill["level"], skill["title"])
+   lt.add_last(offers["skills"], t)
+   return offers
+
+
+def addEmployment_type(offers, employment_type):
+   """
+   Adiciona un employment_type "type", "title", "currency_salary", "salary_from", "salary_to"
+   """
+   t = newEmployment_type(employment_type["type"], employment_type["title"], employment_type["currency_salary"], employment_type["salary_from"], employment_type["salary_to"])
+   lt.add_last(offers["employments_types"], t)
+   return offers
+
+
+def addMultilocation(offers, multilocation):
+   """
+   Adiciona un skill a la lista de "city", "street", "title"
+   """
+   t = newMultilocation(multilocation["city"], multilocation["street"], multilocation["title"])
+   lt.add_last(offers["multilocations"], t)
+   return offers
+
 def jobSize(offers):
     return lt.size(offers["jobs"])
+
+def skillSize(offers):
+    return lt.size(offers["skills"])
+
+def employment_typeSize(offers):
+    return lt.size(offers["employments_types"])
+
+def multilocationSize(offers):
+    return lt.size(offers["multilocations"])
 
 # Funciones para creacion de datos
 

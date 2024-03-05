@@ -66,8 +66,8 @@ def load_data():
     """
     Carga los datos
     """
-    jobs = controller.load_data(control)
-    return jobs
+    jobs, skills, employments_types, multilocations = controller.load_data(control)
+    return jobs, skills, employments_types, multilocations
 
 
 def print_data(control, id):
@@ -155,8 +155,11 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 1:
             print("Cargando información de los archivos ....\n")
-            job_print = load_data()
+            job_print, skill_print, employments_types_print, multilocations_print= load_data()
             print("Jobs cargados: " + str(job_print))
+            print("Skills cargados: " + str(skill_print))
+            print("Employments Types cargados: " + str(employments_types_print))
+            print("Multilocations cargados: " + str(multilocations_print))
         elif int(inputs) == 2:
             num_ofertas = input("Ingrese el numero de ofertas: ")
             num_ofertas = int(num_ofertas)
