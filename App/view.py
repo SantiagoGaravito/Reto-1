@@ -69,7 +69,34 @@ def load_data():
     jobs, skills, employments_types, multilocations = controller.load_data(control)
     return jobs, skills, employments_types, multilocations
 
+# Imprimir Resultados published_at, title, company_name, experience_level, country_code, city
+def printSortResults(sort_jobs, sample=4):
+    if lt.isEmpty(sort_jobs):
+        print("La lista esta vacia!!!...")
+    else:
+        size = lt.size(sort_jobs)
+        if size <= sample*2:
+            print("Los", size, "Jobs ordenados son:")
+            for job in lt.iterator(sort_jobs):
+                print("Titulo:", job["title"], "published_at:", job["published_at"],
+                      "company_name:", job["company_name"])
+        else:
+            print("Los", sample, "primeros libros ordenados son:")
+            i = 1
+            while i <= sample:
+                job = lt.get_element(sort_jobs, i)
+                print("Titulo:", job["title"], "published_at:", job["published_at"],
+                      "company_name:", job["company_name"])
+                i += 1
 
+            print("Los", sample, "últimos jobs ordenados son:")
+            i = size - sample + 1
+            while i <= size:
+                job = lt.get_element(sort_jobs, i)
+                print("Titulo:", job["title"], "published_at:", job["published_at"],
+                      "company_name:", job["company_name"])
+                i += 1
+                
 def print_data(control, id):
     """
         Función que imprime un dato dado su ID
@@ -160,6 +187,12 @@ if __name__ == "__main__":
             print("Skills cargados: " + str(skill_print))
             print("Employments Types cargados: " + str(employments_types_print))
             print("Multilocations cargados: " + str(multilocations_print))
+            
+            #result = controller.sortJobs(control)
+            #sorted_list = result[1]
+            #size = lt.size(result)
+            #printSortResults(result)
+            
         elif int(inputs) == 2:
             num_ofertas = input("Ingrese el numero de ofertas: ")
             num_ofertas = int(num_ofertas)

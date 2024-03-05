@@ -156,6 +156,27 @@ def employment_typeSize(offers):
 def multilocationSize(offers):
     return lt.size(offers["multilocations"])
 
+
+# Funciones de ordenamiento
+
+def sortJobs(offers):
+    """
+    Ordena los Jobs
+    """
+    # toma la lista jobs
+    jobs = offers["jobs"]
+    # ordena la lista de libros
+    sorted_list = lt.shell_sort(jobs, compareValue)
+    # actualiza la lista de libros del catalogo
+    offers["jobs"] = sorted_list
+    return sorted_list
+
+def compareValue(job1, job2):
+    """
+    compara dos jobs por title
+    """
+    return (str(job1["title"]) > str(job2["title"]))
+
 # Funciones para creacion de datos
 
 def new_data(id, info):

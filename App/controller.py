@@ -87,6 +87,19 @@ def loadMultilocations(offers):
         model.addMultilocation(offers, multilocatio)
     return model.multilocationSize(offers)
 
+
+# Funciones de ordenamiento
+
+def sortJobs(control):
+    """
+    Ordena los JOBS
+    """
+    sorted_list = model.sortJobs(control["model"])
+    
+    return  sorted_list
+
+
+
 # Funciones de ordenamiento
 
 def sort(control):
