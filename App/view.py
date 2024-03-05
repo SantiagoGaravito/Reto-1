@@ -139,6 +139,34 @@ def print_req_8(control):
     pass
 
 
+
+def printSortResults(sort_jobs, sample=3):
+    if lt.isEmpty(sort_jobs):
+        print("La lista esta vacia!!!...")
+    else:
+        size = lt.size(sort_jobs)
+        if size <= sample*2:
+            print("Los", size, "Jobs ordenados son:")
+            for job in lt.iterator(sort_jobs):
+                print("Titulo:", job["title"], "published_at:", job["published_at"],
+                      "company_name:", job["company_name"])
+        else:
+            print("Los", sample, "primeros jobs ordenados son:")
+            i = 1
+            while i <= sample:
+                job = lt.get_element(sort_jobs, i)
+                print("Titulo:", job["title"], "published_at:", job["published_at"],
+                      "company_name:", job["company_name"])
+                i += 1
+
+            print("Los", sample, "últimos jobs ordenados son:")
+            i = size - sample + 1
+            while i <= size:
+                job = lt.get_element(sort_jobs, i)
+                print("Titulo:", job["title"], "published_at:", job["published_at"],
+                      "company_name:", job["company_name"])
+                i += 1
+
 # Se crea el controlador asociado a la vista
 control = new_controller()
 
@@ -158,6 +186,14 @@ if __name__ == "__main__":
             print("Jobs cargados: " + str(job_print))
             #data = load_data()
         elif int(inputs) == 2:
+            num_ofertas = input("Ingrese el numero de ofertas: ")
+            num_ofertas = int(num_ofertas)
+            cod_pais = input("Ingrese el codigo del pais: ")
+            nivel = input("Ingrese el nivel de experticia: ")
+            #result = controller.ofertaPaisNivel(control, num_ofertas, cod_pais, nivel)
+            result = controller.sortJobs(control)
+            #sorted_list = result[num_ofertas]
+            printSortResults(result)
             print_req_1(control)
 
         elif int(inputs) == 3:
@@ -187,3 +223,5 @@ if __name__ == "__main__":
         else:
             print("Opción errónea, vuelva a elegir.\n")
     sys.exit(0)
+
+

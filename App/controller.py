@@ -73,8 +73,19 @@ def sort(control):
     #TODO: Llamar la función del modelo para ordenar los datos
     pass
 
+def sortJobs(control):
+    sorted_list = model.sortJobs(control["model"])
+    return sorted_list
 
 # Funciones de consulta sobre el catálogo
+
+
+def ofertaPaisNivel(control, num_ofertas, cod_pais, nivel):
+    """
+    Retrona los libros de un autor
+    """
+    jobs = model.ofertaPaisNivel(control["model"],  num_ofertas, cod_pais, nivel)
+    return jobs
 
 def get_data(control, id):
     """

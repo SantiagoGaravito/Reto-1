@@ -37,6 +37,8 @@ from DISClib.Algorithms.Sorting import quicksort as quk
 assert cf
 import csv
 import model
+from datetime import datetime
+
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá
@@ -97,7 +99,41 @@ def newJob(published_at, title, company_name, experience_level, country_code, ci
    return job
 
 
+def ofertaPaisNivel(num_ofertas, cod_pais, nivel):
+    jobs = sortJobs(offers)
+    jobs = lt.get_element(offers["jobs"], authorname)
+    return jobs
 
+# funciones para comparar elementos dentro de algoritmos de ordenamientos
+
+def convertir_fecha(diccionario):
+        # Convierte la cadena de fecha en un objeto datetime para comparar
+    return datetime.strptime(diccionario['published_at'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
+
+def compareFecha(fecha1, fecha2):
+    """
+    compara dos jobs por fecha
+    """
+    # TODO examinar el criterio de ordenamiento (parte 1)
+    return ((fecha1["published_at"]) > (fecha2["published_at"]))
+
+
+# Funciones de ordenamiento
+
+def sortJobs(offers):
+    """
+    Ordena Jobs por fecha
+    """
+    # TODO examinar el ordenamiento (parte 1)
+    # toma la lista de libros del catalogo
+    jobs = offers["jobs"]
+    # ordena la lista de jobs
+    #job_dates = convertir_fecha(jobs)
+    sorted_list = lt.shell_sort(jobs, compareFecha)
+    # actualiza la lista de jobs
+    offers["jobs"] = sorted_list
+    return sorted_list
 
 # Funciones para creacion de datos
 
