@@ -29,7 +29,7 @@ This repository is part of the data structure and algorithms (#EDA) teaching fra
 
 <!-- GROUP MEMBERS -->
 ## Members
-
+1. Santiago Garavito cod 201716308
 The students edit this section to add their names, Uniandes emails, and specify which project functionality of the project they will implement.
 
 1. Student No. 1 Name, Student No. 1 Uniandes Email, Student No. 1 owned functionality.
