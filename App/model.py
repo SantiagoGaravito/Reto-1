@@ -64,19 +64,30 @@ def new_Offers():
 
     return offers
 
-# Funciones para agregar informacion al modelo
-def newJob(published_at, title, company_name, experience_level, country_code, city ):
-   """
-   Esta estructura almancena los jobs.
-   """
-   job = {"published_at": "", "title": "", "company_name": "", "experience_level": "", "country_code": "", "city": ""}
-   job["published_at"] = datetime.fromisoformat(published_at.replace('Z', '+00:00'))
-   job["title"] = title
-   job["company_name"] = company_name
-   job["experience_level"] = experience_level
-   job["country_code"] = country_code
-   job["city"] = city
-   return job
+# Funciones para agregar informacion al modelo title;street;city;country_code;address_text;marker_icon;workplace_type;company_name;company_url;company_size;experience_level;published_at;remote_interview;open_to_hire_ukrainians;id;display_offer
+def newJob(published_at, title, company_name, experience_level, country_code, city, street, address_text, marker_icon, workplace_type, company_url, company_size, remote_interview, open_to_hire_ukrainians, id, display_offer):
+    """
+    Esta estructura almancena los jobs.
+    """
+    job = {"published_at": "", "title": "", "company_name": "", "experience_level": "", "country_code": "", "city": "", "street": "", "address_text": "", "marker_icon": "", "workplace_type": "", "company_url": "", "company_size": "", "remote_interview": "", "open_to_hire_ukrainians": "", "id": "", "display_offer": ""}
+    job["published_at"] = datetime.fromisoformat(published_at.replace('Z', '+00:00'))
+    job["title"] = title
+    job["company_name"] = company_name
+    job["experience_level"] = experience_level
+    job["country_code"] = country_code
+    job["city"] = city
+    job["street"] = street
+    job["address_text"] = address_text
+    job["marker_icon"] = marker_icon
+    job["workplace_type"] = workplace_type
+    job["company_url"] = company_url
+    job["company_size"] = company_size
+    job["remote_interview"] = remote_interview
+    job["open_to_hire_ukrainians"] = open_to_hire_ukrainians
+    job["id"] = id
+    job["display_offer"] = display_offer
+    return job
+
 
 def newSkill(name, level, title):
    """
@@ -112,12 +123,13 @@ def newMultilocation(city, street, title):
    return multilocation
 
 def addJob(offers, job):
-   """
-   Adiciona un job a la lista de jobs
-   """
-   t = newJob(job["published_at"], job["title"], job["company_name"], job["experience_level"], job["country_code"], job["city"])
-   lt.add_last(offers["jobs"], t)
-   return offers
+    """
+    Adiciona un job a la lista de jobs
+    """
+    t = newJob(job["published_at"], job["title"], job["company_name"], job["experience_level"], job["country_code"], job["city"], job["street"], job["address_text"], job["marker_icon"], job["workplace_type"], job["company_url"], job["company_size"], job["remote_interview"], job["open_to_hire_ukrainians"], job["id"], job["display_offer"])
+    lt.add_last(offers["jobs"], t)
+    return offers
+
 
 def addSkill(offers, skill):
    """
@@ -178,10 +190,21 @@ def compareValue(job1, job2):
     """
     return ((job1["published_at"]) < (job2["published_at"]))
 
-def convertir_fecha(offers):
-    # Convierte la cadena de fecha en un objeto datetime para comparar
-    jobs = offers["jobs"]
-    return datetime.strptime(jobs['published_at'], '%Y-%m-%dT%H:%M:%S.%fZ')
+def filterbyCountry(offers, country, level):
+    jobs = offers["jobs"]   
+    filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
+    filtered_offers_level = lt.new_list()
+    
+    for i in jobs["elementos"]:
+        if i["country_code"] == country:
+            filtered_offers = lt.add_last(filtered_offers, i)
+    for j in filtered_offers["elementos"]:
+        if j["experience_level"] == level:
+            filtered_offers_level = lt.add_last(filtered_offers_level, j)        
+        
+    return filtered_offers_level
+
+
 
 
 # Funciones para creacion de datos
