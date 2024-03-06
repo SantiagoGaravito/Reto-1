@@ -278,6 +278,12 @@ if __name__ == "__main__":
             printSortResultsP(filter_date, size_filter_date)
             print("==========================================")
             print("El total de ofertas en el país en el periodo de consulta: " + str(size_filter_date))
+            
+            filter_company = controller.filter_unique_by_attribute(control, filter_date)
+            size_filter_company = lt.size(filter_company)
+            printSortResultsP(filter_company, size_filter_company)
+            print("==========================================")
+            print("El total de empresas que publicaron al menos una oferta en el país de consulta: " + str(size_filter_company))
             print_req_2(control)
 
         elif int(inputs) == 4:

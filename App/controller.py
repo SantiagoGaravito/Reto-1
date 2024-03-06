@@ -124,6 +124,16 @@ def filterbyDateRange(control, filter, fecha_inicial, fecha_final):
     
     return  filtered_list
 
+
+def filter_unique_by_attribute(control, filter):
+    """
+    Filtra los JOBS by country
+    """
+    filtered_list = model.filter_unique_by_attribute(control["model"], filter)
+    
+    return  filtered_list
+
+
 # Funciones de ordenamiento
 
 def sort(control):

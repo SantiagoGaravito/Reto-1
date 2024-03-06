@@ -227,11 +227,22 @@ def filterbyDateRange(offers, filter, fecha_inicial, fecha_final):
         if i["published_at"] != " ":
             date_job = i["published_at"]
             date_job_tz = date_job.replace(tzinfo=None)
-            #date_job = datetime.strptime(i["published_at"], "%Y-%m-%d").replace(tzinfo=None)
             if fecha_inicial <= date_job_tz <= fecha_final:
                 lt.add_last(filtered_offers, i)
     
     return filtered_offers
+
+def filter_unique_by_attribute(offers, filter):
+    unique_values = set()  # Initialize an empty set to store unique values
+    filtered_list = lt.new_list()    # Initialize an empty list to store filtered dictionaries
+    
+    for item in filter["elementos"]:
+        company_name = item["company_name"]
+        if company_name not in unique_values:
+            unique_values.add(company_name)  # Add the unique value to the set
+            lt.add_last(filtered_list, item)
+    
+    return filtered_list
 
 
 # Funciones para creacion de datos
