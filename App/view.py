@@ -27,7 +27,7 @@ import controller
 from DISClib.ADT import stack as st
 from DISClib.ADT import queue as qu
 assert cf
-from tabulate import tabulate
+#from tabulate import tabulate
 import traceback
 import array_list as lt
 from datetime import datetime
@@ -141,11 +141,40 @@ def printSortResultsP(sort_jobs, sample):
         print("\n")
         print("Los", sample, "últimos jobs ordenados son: ==========================================")
         for job in lt.iterator(sort_jobs):
-                print("Fecha de publicación:", job["published_at"], " * Título de la oferta:", job["title"],
-                      " * Nombre de la empresa que publica:", job["company_name"], " * Nivel de experticia de la oferta:", job["experience_level"],
-                      " * País de la oferta:", job["country_code"], " * Ciudad de la oferta:", job["city"], " * Tamaño de la Empresa:", job["company_size"], " * Tipo de Ubicacion de trabajo:", job["workplace_type"], " * Disponible a Contratar Ucranianos:", job["open_to_hire_ukrainians"])
+                print("Fecha de publicación:", job["published_at"], " * Título de la oferta:", job["title"]," * Nivel de experticia de la oferta:", job["experience_level"],
+                      " * Nombre de la empresa que publica:", job["company_name"]," * Ciudad de la oferta:", job["city"], 
+                      " * Tipo de Ubicacion de trabajo:", job["workplace_type"], " * Disponible a Contratar Ucranianos:", job["open_to_hire_ukrainians"])
 
+
+def printSortResultsCo(sort_jobs, sample):
+    if lt.isEmpty(sort_jobs):
+        print("La lista esta vacia!!!...")
+    else:
+        print("\n")
+        print("Los", sample, "últimos jobs ordenados son: ==========================================")
+        for job in lt.iterator(sort_jobs):
+                print(job["company_name"])
                 
+def printSortResultsCi(sort_jobs, sample):
+    if lt.isEmpty(sort_jobs):
+        print("La lista esta vacia!!!...")
+    else:
+        print("\n")
+        print("Los", sample, "últimos jobs ordenados son: ==========================================")
+        for job in lt.iterator(sort_jobs):
+                print(job["city"])
+  
+def printCount_city(control, filter_date):
+    count_city = controller.Count_city(control, filter_date)
+
+    ciudad_mas_conteos, conteo_mas = controller.ciudad_con_mas_conteos_control(count_city)
+    ciudad_menos_conteos, conteo_menos = controller.ciudad_con_menos_conteos_control(count_city)
+
+    print(f"Ciudad con más conteos: {ciudad_mas_conteos} - {conteo_mas} conteos")
+    print(f"Ciudad con menos conteos: {ciudad_menos_conteos} - {conteo_menos} conteos")
+
+
+         
 def print_data(control, id):
     """
         Función que imprime un dato dado su ID
@@ -281,10 +310,21 @@ if __name__ == "__main__":
             
             filter_company = controller.filter_unique_by_attribute(control, filter_date)
             size_filter_company = lt.size(filter_company)
-            printSortResultsP(filter_company, size_filter_company)
+            printSortResultsCo(filter_company, size_filter_company)
             print("==========================================")
             print("El total de empresas que publicaron al menos una oferta en el país de consulta: " + str(size_filter_company))
+            
+            filter_city = controller.filter_unique_by_city(control, filter_date)
+            size_filter_city = lt.size(filter_city)
+            printSortResultsCi(filter_city, size_filter_city)
+            print("==========================================")
+            print("El total de ciudades donde se publico al menos una oferta en el país de consulta: " + str(size_filter_city))
             print_req_2(control)
+            
+            count_city= controller.Count_city(control, filter_date)
+            size_count_city = lt.size(count_city)
+            print("==========================================")
+            printCount_city(control, filter_date)
 
         elif int(inputs) == 4:
             print_req_3(control)

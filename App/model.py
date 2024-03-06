@@ -244,6 +244,40 @@ def filter_unique_by_attribute(offers, filter):
     
     return filtered_list
 
+def filter_unique_by_city(offers, filter):
+    unique_values = set()  # Initialize an empty set to store unique values
+    filtered_list = lt.new_list()    # Initialize an empty list to store filtered dictionaries
+    
+    for item in filter["elementos"]:
+        city = item["city"]
+        if city not in unique_values:
+            unique_values.add(city)  # Add the unique value to the set
+            lt.add_last(filtered_list, item)
+    
+    return filtered_list
+
+def Count_city(offers, filter):
+    unique_cities = set()  # Initialize an empty set to store unique cities
+    filtered_list = lt.new_list()  # Initialize an empty list to store filtered dictionaries
+    Count_city = lt.new_list()
+
+    for item in filter["elementos"]:
+        city = item.get("city")  # Use get() method to avoid KeyError
+        if city is not None and city not in unique_cities:
+            unique_cities.add(city)  # Add the unique city to the set
+            lt.add_last(filtered_list, item)
+            lt.add_last(Count_city, {"ciudad": city, "conteo": 0})
+
+    for i in filter["elementos"]:
+        city = i.get("city")  # Use get() method to avoid KeyError
+        if city is not None:
+            # Increment the count for the corresponding city in Count_city
+            for count_item in Count_city["elementos"]:
+                if count_item["ciudad"] == city:
+                    count_item["conteo"] += 1
+                    break
+
+    return Count_city
 
 # Funciones para creacion de datos
 

@@ -133,7 +133,36 @@ def filter_unique_by_attribute(control, filter):
     
     return  filtered_list
 
+def filter_unique_by_city(control, filter):
+    """
+    Filtra los JOBS by city
+    """
+    filtered_list = model.filter_unique_by_city(control["model"], filter)
+    
+    return  filtered_list
 
+
+def Count_city(control, filter):
+    """
+    Filtra los JOBS by city
+    """
+    filtered_list = model.Count_city(control["model"], filter)
+    
+    return  filtered_list
+
+
+def ciudad_con_mas_conteos_control(count_city):
+    if not count_city["elementos"]:
+        return None
+    ciudad_max = max(count_city["elementos"], key=lambda x: x["conteo"])
+    return ciudad_max["ciudad"], ciudad_max["conteo"]
+
+
+def ciudad_con_menos_conteos_control(count_city):
+    if not count_city["elementos"]:
+        return None
+    ciudad_min = min(count_city["elementos"], key=lambda x: x["conteo"])
+    return ciudad_min["ciudad"], ciudad_min["conteo"]
 # Funciones de ordenamiento
 
 def sort(control):
