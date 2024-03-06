@@ -98,6 +98,14 @@ def sortJobs(control):
     
     return  sorted_list
 
+def sortJobsF(control):
+    """
+    Ordena los JOBS
+    """
+    sorted_list = model.sortJobsF(control["model"])
+    
+    return  sorted_list
+
 
 def filterbyCountryLevel(control, country, level):
     """

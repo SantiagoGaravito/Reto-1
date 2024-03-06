@@ -299,10 +299,13 @@ if __name__ == "__main__":
             print("==========================================")
             print("Fecha inicial:", fecha_inicial)
             print("Fecha final:", fecha_final)
+            result = controller.sortJobsF(control)
+            size_result = lt.size(result)
             filter = controller.filterbyCountry(control, cod_pais)
             size_filter = lt.size(filter)
             filter_date = controller.filterbyDateRange(control, filter, fecha_inicial, fecha_final)
             size_filter_date = lt.size(filter_date)
+            
             
             printSortResultsP(filter_date, size_filter_date)
             print("==========================================")

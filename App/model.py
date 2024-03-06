@@ -190,6 +190,27 @@ def compareValue(job1, job2):
     """
     return ((job1["published_at"]) < (job2["published_at"]))
 
+def sortJobsF(offers):
+    """
+    Ordena los Jobs
+    """
+    # toma la lista jobs
+    jobs = offers["jobs"]
+    # ordena la lista de jobs
+    sorted_list = lt.shell_sort(jobs, compareValueF)
+    # actualiza la lista de libros del catalogo
+    offers["jobs"] = sorted_list
+    return sorted_list
+
+def compareValueF(job1, job2):
+    """
+    compara dos jobs por published_at y luego por company_name si published_at es el mismo
+    """
+    if job1["published_at"] == job2["published_at"]:
+        return job1["company_name"] < job2["company_name"]
+    else:
+        return job1["published_at"] < job2["published_at"]
+
 def filterbyCountryLevel(offers, country, level):
     jobs = offers["jobs"]   
     filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
