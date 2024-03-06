@@ -190,7 +190,7 @@ def compareValue(job1, job2):
     """
     return ((job1["published_at"]) < (job2["published_at"]))
 
-def filterbyCountry(offers, country, level):
+def filterbyCountryLevel(offers, country, level):
     jobs = offers["jobs"]   
     filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
     filtered_offers_level = lt.new_list()
@@ -205,7 +205,15 @@ def filterbyCountry(offers, country, level):
     return filtered_offers_level
 
 
-
+def filterbyCountry(offers, country):
+    jobs = offers["jobs"]   
+    filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
+    
+    for i in jobs["elementos"]:
+        if i["country_code"] == country:
+            filtered_offers = lt.add_last(filtered_offers, i)
+    
+    return filtered_offers
 
 # Funciones para creacion de datos
 

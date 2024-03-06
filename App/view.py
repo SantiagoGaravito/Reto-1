@@ -133,6 +133,17 @@ def printSortResultsN(sort_jobs, sample):
                 i -= 1
 
         
+def printSortResultsP(sort_jobs, sample):
+    if lt.isEmpty(sort_jobs):
+        print("La lista esta vacia!!!...")
+    else:
+        print("\n")
+        print("Los", sample, "últimos jobs ordenados son: ==========================================")
+        for job in lt.iterator(sort_jobs):
+                print("Fecha de publicación:", job["published_at"], " * Título de la oferta:", job["title"],
+                      " * Nombre de la empresa que publica:", job["company_name"], " * Nivel de experticia de la oferta:", job["experience_level"],
+                      " * País de la oferta:", job["country_code"], " * Ciudad de la oferta:", job["city"], " * Tamaño de la Empresa:", job["company_size"], " * Tipo de Ubicacion de trabajo:", job["workplace_type"], " * Disponible a Contratar Ucranianos:", job["open_to_hire_ukrainians"])
+
                 
 def print_data(control, id):
     """
@@ -238,7 +249,7 @@ if __name__ == "__main__":
             
             result = controller.sortJobs(control)
             size = lt.size(result)
-            filter = controller.filterbyCountry(control, cod_pais,nivel)
+            filter = controller.filterbyCountryLevel(control, cod_pais, nivel)
             size_filter = lt.size(filter)
             
             printSortResultsN(filter, num_ofertas)
@@ -248,6 +259,12 @@ if __name__ == "__main__":
             print_req_1(control)
 
         elif int(inputs) == 3:
+            cod_pais = input("Ingrese el codigo del pais: ")
+            filter = controller.filterbyCountry(control, cod_pais)
+            size_filter = lt.size(filter)
+            printSortResultsP(filter, size_filter)
+            print("==========================================")
+            print("Total Ofertas Ofrecidas: " + str(size_filter))
             print_req_2(control)
 
         elif int(inputs) == 4:
