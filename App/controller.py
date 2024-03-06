@@ -115,6 +115,15 @@ def filterbyCountry(control, country):
     
     return  filtered_list
 
+
+def filterbyDateRange(control, filter, fecha_inicial, fecha_final):
+    """
+    Filtra los JOBS by Date
+    """
+    filtered_list = model.filterbyDateRange(control["model"], filter, fecha_inicial, fecha_final)
+    
+    return  filtered_list
+
 # Funciones de ordenamiento
 
 def sort(control):

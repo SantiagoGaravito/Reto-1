@@ -30,6 +30,7 @@ assert cf
 from tabulate import tabulate
 import traceback
 import array_list as lt
+from datetime import datetime
 
 """
 La vista se encarga de la interacción con el usuario
@@ -260,11 +261,23 @@ if __name__ == "__main__":
 
         elif int(inputs) == 3:
             cod_pais = input("Ingrese el codigo del pais: ")
+            fecha_inicial_str = input("Ingrese la fecha inicial (con formato %Y-%m-%d): ")
+            fecha_final_str = input("Ingrese la fecha final (con formato %Y-%m-%d): ")
+           
+            # Convert string input to datetime objects
+            fecha_inicial = datetime.strptime(fecha_inicial_str, "%Y-%m-%d")
+            fecha_final = datetime.strptime(fecha_final_str, "%Y-%m-%d")
+            print("==========================================")
+            print("Fecha inicial:", fecha_inicial)
+            print("Fecha final:", fecha_final)
             filter = controller.filterbyCountry(control, cod_pais)
             size_filter = lt.size(filter)
-            printSortResultsP(filter, size_filter)
+            filter_date = controller.filterbyDateRange(control, filter, fecha_inicial, fecha_final)
+            size_filter_date = lt.size(filter_date)
+            
+            printSortResultsP(filter_date, size_filter_date)
             print("==========================================")
-            print("Total Ofertas Ofrecidas: " + str(size_filter))
+            print("El total de ofertas en el país en el periodo de consulta: " + str(size_filter_date))
             print_req_2(control)
 
         elif int(inputs) == 4:

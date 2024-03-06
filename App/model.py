@@ -215,6 +215,25 @@ def filterbyCountry(offers, country):
     
     return filtered_offers
 
+
+def filterbyDateRange(offers, filter, fecha_inicial, fecha_final):
+    jobs = offers["jobs"]   
+    filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
+  
+    fecha_inicial = fecha_inicial.replace(tzinfo=None)
+    fecha_final = fecha_final.replace(tzinfo=None)
+
+    for i in filter["elementos"]:
+        if i["published_at"] != " ":
+            date_job = i["published_at"]
+            date_job_tz = date_job.replace(tzinfo=None)
+            #date_job = datetime.strptime(i["published_at"], "%Y-%m-%d").replace(tzinfo=None)
+            if fecha_inicial <= date_job_tz <= fecha_final:
+                lt.add_last(filtered_offers, i)
+    
+    return filtered_offers
+
+
 # Funciones para creacion de datos
 
 def new_data(id, info):
