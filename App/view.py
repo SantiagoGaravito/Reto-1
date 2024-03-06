@@ -330,7 +330,40 @@ if __name__ == "__main__":
             printCount_city(control, filter_date)
 
         elif int(inputs) == 4:
+            num_city = input("Ingrese el numero de ciudades: ")
+            num_city = int(num_city)
+            cod_pais = input("Ingrese el codigo del pais: ")
+            nivel = input("Ingrese el nivel de experticia entre (junior, mid, o senior): ")
+            fecha_inicial_str = input("Ingrese la fecha inicial (con formato %Y-%m-%d): ")
+            fecha_final_str = input("Ingrese la fecha final (con formato %Y-%m-%d): ")
+            
+            fecha_inicial = datetime.strptime(fecha_inicial_str, "%Y-%m-%d")
+            fecha_final = datetime.strptime(fecha_final_str, "%Y-%m-%d")
+            result = controller.sortJobs(control)
+            size = lt.size(result)
+            filter = controller.filterbyCountryLevel(control, cod_pais, nivel)
+            size_filter = lt.size(filter)
+            filter_date = controller.filterbyDateRange(control, filter, fecha_inicial, fecha_final)
+            size_filter_date = lt.size(filter_date)
+            
+            printSortResultsP(filter_date, size_filter_date)
+            print("==========================================")
+            print("El total de ofertas en el país en el periodo de consulta: " + str(size_filter_date))
+            
+            filter_city = controller.filter_unique_by_city(control, filter_date)
+            size_filter_city = lt.size(filter_city)
+            printSortResultsCi(filter_city, size_filter_city)
+            print("==========================================")
+            print("El total de ciudades donde se publico al menos una oferta en el país de consulta: " + str(size_filter_city))
+            
+            
+            filter_company = controller.filter_unique_by_attribute(control, filter_date)
+            size_filter_company = lt.size(filter_company)
+            printSortResultsCo(filter_company, size_filter_company)
+            print("==========================================")
+            print("El total de empresas que publicaron al menos una oferta en el país de consulta: " + str(size_filter_company))
             print_req_3(control)
+            
 
         elif int(inputs) == 5:
             print_req_4(control)

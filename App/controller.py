@@ -107,6 +107,7 @@ def sortJobsF(control):
     return  sorted_list
 
 
+
 def filterbyCountryLevel(control, country, level):
     """
     Filtra los JOBS

@@ -211,6 +211,7 @@ def compareValueF(job1, job2):
     else:
         return job1["published_at"] < job2["published_at"]
 
+
 def filterbyCountryLevel(offers, country, level):
     jobs = offers["jobs"]   
     filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
