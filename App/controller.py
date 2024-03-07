@@ -74,7 +74,7 @@ def loadSkills(offers):
 
 def loadEmployments_types(offers):
     employments_typesfile = cf.data_dir + "small-employments_types.csv"
-    input_file = csv.DictReader(open(employments_typesfile, encoding="utf-8"), delimiter=';', fieldnames=["type", "title", "currency_salary", "salary_from", "salary_to"])
+    input_file = csv.DictReader(open(employments_typesfile, encoding="utf-8"), delimiter=';', fieldnames=["type", "id", "currency_salary", "salary_from", "salary_to"])
     for employment_type in input_file:
         model.addEmployment_type(offers, employment_type)
     return model.employment_typeSize(offers)
@@ -106,7 +106,14 @@ def sortJobsF(control):
     
     return  sorted_list
 
-
+def ordenar_por_ofertas_y_nombre(control,lista):
+    lista_ordenada = model.ordenar_por_ofertas_y_nombre(control["model"],lista)
+    
+    return  lista_ordenada
+def merge_lists(control, list1, key):
+    
+    merge_lists = model.unir_listas_por_llave(control["model"],list1, key)
+    return merge_lists
 
 def filterbyCountryLevel(control, country, level):
     """
@@ -172,86 +179,6 @@ def ciudad_con_menos_conteos_control(count_city):
         return None
     ciudad_min = min(count_city["elementos"], key=lambda x: x["conteo"])
     return ciudad_min["ciudad"], ciudad_min["conteo"]
-# Funciones de ordenamiento
-
-def sort(control):
-    """
-    Ordena los datos del modelo
-    """
-    #TODO: Llamar la función del modelo para ordenar los datos
-    pass
-
-
-
-def get_data(control, id):
-    """
-    Retorna un dato por su ID.
-    """
-    #TODO: Llamar la función del modelo para obtener un dato
-    pass
-
-
-def req_1(control):
-    """
-    Retorna el resultado del requerimiento 1
-    """
-    # TODO: Modificar el requerimiento 1
-    pass
-
-
-def req_2(control):
-    """
-    Retorna el resultado del requerimiento 2
-    """
-    # TODO: Modificar el requerimiento 2
-    pass
-
-
-def req_3(control):
-    """
-    Retorna el resultado del requerimiento 3
-    """
-    # TODO: Modificar el requerimiento 3
-    pass
-
-
-def req_4(control):
-    """
-    Retorna el resultado del requerimiento 4
-    """
-    # TODO: Modificar el requerimiento 4
-    pass
-
-
-def req_5(control):
-    """
-    Retorna el resultado del requerimiento 5
-    """
-    # TODO: Modificar el requerimiento 5
-    pass
-
-def req_6(control):
-    """
-    Retorna el resultado del requerimiento 6
-    """
-    # TODO: Modificar el requerimiento 6
-    pass
-
-
-def req_7(control):
-    """
-    Retorna el resultado del requerimiento 7
-    """
-    # TODO: Modificar el requerimiento 7
-    pass
-
-
-def req_8(control):
-    """
-    Retorna el resultado del requerimiento 8
-    """
-    # TODO: Modificar el requerimiento 8
-    pass
 
 
 # Funciones para medir tiempos de ejecucion

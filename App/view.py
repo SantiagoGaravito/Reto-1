@@ -54,14 +54,10 @@ def print_menu():
     print("==========================================")
     print("Bienvenido")
     print("1- Cargar información")
-    print("2- Ejecutar Requerimiento 1")
-    print("3- Ejecutar Requerimiento 2")
-    print("4- Ejecutar Requerimiento 3")
+    print("2- Listar las últimas N ofertas de trabajo según su país y nivel de experticia")
+    print("3- Consultar las ofertas que se publicaron en un país durante un periodo de tiempo ")
+    print("4- Clasificar las N ciudades con mayor número de ofertas de trabajo por experticia entre un rango de fechas")
     print("5- Ejecutar Requerimiento 4")
-    print("6- Ejecutar Requerimiento 5")
-    print("7- Ejecutar Requerimiento 6")
-    print("8- Ejecutar Requerimiento 7")
-    print("9- Ejecutar Requerimiento 8")
     print("0- Salir")
     print("==========================================")
 
@@ -73,7 +69,7 @@ def load_data():
     jobs, skills, employments_types, multilocations = controller.load_data(control)
     return jobs, skills, employments_types, multilocations
 
-# Imprimir Resultados published_at, title, company_name, experience_level, country_code, city
+
 def printSortResults(sort_jobs, sample=3):
     if lt.isEmpty(sort_jobs):
         print("La lista esta vacia!!!...")
@@ -108,7 +104,7 @@ def printSortResults(sort_jobs, sample=3):
                 i -= 1
         
        
-# Imprimir Resultados published_at, title, company_name, experience_level, country_code, city
+
 def printSortResultsN(sort_jobs, sample):
     if lt.isEmpty(sort_jobs):
         print("La lista esta vacia!!!...")
@@ -116,14 +112,14 @@ def printSortResultsN(sort_jobs, sample):
         size = lt.size(sort_jobs)
         if size <= sample*2:
             print("\n")
-            print("Los", size, "Jobs ordenados son: ==========================================")
+            
             for job in lt.iterator(sort_jobs):
                 print("Fecha de publicación:", job["published_at"], " * Título de la oferta:", job["title"],
                       " * Nombre de la empresa que publica:", job["company_name"], " * Nivel de experticia de la oferta:", job["experience_level"],
                       " * País de la oferta:", job["country_code"], " * Ciudad de la oferta:", job["city"], " * Tamaño de la Empresa:", job["company_size"], " * Tipo de Ubicacion de trabajo:", job["workplace_type"], " * Disponible a Contratar Ucranianos:", job["open_to_hire_ukrainians"])
         else:
             print("\n")
-            print("Los", sample, "últimos jobs ordenados son: ==========================================")
+            print("Las", size, "ofertas son:")
             
             i = size
             while i >= size - sample + 1 and i > 0:
@@ -139,19 +135,18 @@ def printSortResultsP(sort_jobs, sample):
         print("La lista esta vacia!!!...")
     else:
         print("\n")
-        print("Los", sample, "últimos jobs ordenados son: ==========================================")
         for job in lt.iterator(sort_jobs):
                 print("Fecha de publicación:", job["published_at"], " * Título de la oferta:", job["title"]," * Nivel de experticia de la oferta:", job["experience_level"],
                       " * Nombre de la empresa que publica:", job["company_name"]," * Ciudad de la oferta:", job["city"], 
                       " * Tipo de Ubicacion de trabajo:", job["workplace_type"], " * Disponible a Contratar Ucranianos:", job["open_to_hire_ukrainians"])
 
 
+                
 def printSortResultsCo(sort_jobs, sample):
     if lt.isEmpty(sort_jobs):
         print("La lista esta vacia!!!...")
     else:
         print("\n")
-        print("Los", sample, "últimos jobs ordenados son: ==========================================")
         for job in lt.iterator(sort_jobs):
                 print(job["company_name"])
                 
@@ -160,7 +155,6 @@ def printSortResultsCi(sort_jobs, sample):
         print("La lista esta vacia!!!...")
     else:
         print("\n")
-        print("Los", sample, "últimos jobs ordenados son: ==========================================")
         for job in lt.iterator(sort_jobs):
                 print(job["city"])
   
@@ -174,78 +168,7 @@ def printCount_city(control, filter_date):
     print(f"Ciudad con menos conteos: {ciudad_menos_conteos} - {conteo_menos} conteos")
 
 
-         
-def print_data(control, id):
-    """
-        Función que imprime un dato dado su ID
-    """
-    #TODO: Realizar la función para imprimir un elemento
-    pass
-
-def print_req_1(control):
-    """
-        Función que imprime la solución del Requerimiento 1 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 1
-    pass
-
-
-def print_req_2(control):
-    """
-        Función que imprime la solución del Requerimiento 2 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 2
-    pass
-
-
-def print_req_3(control):
-    """
-        Función que imprime la solución del Requerimiento 3 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 3
-    pass
-
-
-def print_req_4(control):
-    """
-        Función que imprime la solución del Requerimiento 4 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 4
-    pass
-
-
-def print_req_5(control):
-    """
-        Función que imprime la solución del Requerimiento 5 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 5
-    pass
-
-
-def print_req_6(control):
-    """
-        Función que imprime la solución del Requerimiento 6 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 6
-    pass
-
-
-def print_req_7(control):
-    """
-        Función que imprime la solución del Requerimiento 7 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 7
-    pass
-
-
-def print_req_8(control):
-    """
-        Función que imprime la solución del Requerimiento 8 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 8
-    pass
-
-
+        
 
 
 # main del reto
@@ -275,8 +198,9 @@ if __name__ == "__main__":
             num_ofertas = input("Ingrese el numero de ofertas: ")
             num_ofertas = int(num_ofertas)
             cod_pais = input("Ingrese el codigo del pais: ")
+            cod_pais = cod_pais.upper()
             nivel = input("Ingrese el nivel de experticia entre (junior, mid, o senior): ")
-            
+            nivel = nivel.lower()
             result = controller.sortJobs(control)
             size = lt.size(result)
             filter = controller.filterbyCountryLevel(control, cod_pais, nivel)
@@ -286,19 +210,20 @@ if __name__ == "__main__":
             print("==========================================")
             print("Total Ofertas Ofrecidas: " + str(size_filter))
             print("Total Ofertas Impresas: " + str(num_ofertas))
-            print_req_1(control)
+            
 
         elif int(inputs) == 3:
             cod_pais = input("Ingrese el codigo del pais: ")
+            cod_pais = cod_pais.upper()
             fecha_inicial_str = input("Ingrese la fecha inicial (con formato %Y-%m-%d): ")
             fecha_final_str = input("Ingrese la fecha final (con formato %Y-%m-%d): ")
-           
-            # Convert string input to datetime objects
+            fecha_inicial_str = fecha_inicial_str.strip()
+            fecha_final_str = fecha_final_str.strip()
+            
             fecha_inicial = datetime.strptime(fecha_inicial_str, "%Y-%m-%d")
             fecha_final = datetime.strptime(fecha_final_str, "%Y-%m-%d")
             print("==========================================")
-            print("Fecha inicial:", fecha_inicial)
-            print("Fecha final:", fecha_final)
+    
             result = controller.sortJobsF(control)
             size_result = lt.size(result)
             filter = controller.filterbyCountry(control, cod_pais)
@@ -322,7 +247,7 @@ if __name__ == "__main__":
             printSortResultsCi(filter_city, size_filter_city)
             print("==========================================")
             print("El total de ciudades donde se publico al menos una oferta en el país de consulta: " + str(size_filter_city))
-            print_req_2(control)
+          
             
             count_city= controller.Count_city(control, filter_date)
             size_count_city = lt.size(count_city)
@@ -336,15 +261,24 @@ if __name__ == "__main__":
             nivel = input("Ingrese el nivel de experticia entre (junior, mid, o senior): ")
             fecha_inicial_str = input("Ingrese la fecha inicial (con formato %Y-%m-%d): ")
             fecha_final_str = input("Ingrese la fecha final (con formato %Y-%m-%d): ")
+            fecha_inicial_str = fecha_inicial_str.strip()
+            fecha_final_str = fecha_final_str.strip()
             
             fecha_inicial = datetime.strptime(fecha_inicial_str, "%Y-%m-%d")
             fecha_final = datetime.strptime(fecha_final_str, "%Y-%m-%d")
+            
+            
+            
             result = controller.sortJobs(control)
             size = lt.size(result)
+            merge_result = controller.merge_lists(control,result,"id" )
+
             filter = controller.filterbyCountryLevel(control, cod_pais, nivel)
             size_filter = lt.size(filter)
             filter_date = controller.filterbyDateRange(control, filter, fecha_inicial, fecha_final)
             size_filter_date = lt.size(filter_date)
+            lista_ordenada = controller.ordenar_por_ofertas_y_nombre(control,filter_date)
+            size_lista_ordenada = lt.size(lista_ordenada)
             
             printSortResultsP(filter_date, size_filter_date)
             print("==========================================")
@@ -362,23 +296,7 @@ if __name__ == "__main__":
             printSortResultsCo(filter_company, size_filter_company)
             print("==========================================")
             print("El total de empresas que publicaron al menos una oferta en el país de consulta: " + str(size_filter_company))
-            print_req_3(control)
-            
-
-        elif int(inputs) == 5:
-            print_req_4(control)
-
-        elif int(inputs) == 6:
-            print_req_5(control)
-
-        elif int(inputs) == 7:
-            print_req_6(control)
-
-        elif int(inputs) == 8:
-            print_req_7(control)
-
-        elif int(inputs) == 9:
-            print_req_8(control)
+          
 
         elif int(inputs) == 0:
             working = False

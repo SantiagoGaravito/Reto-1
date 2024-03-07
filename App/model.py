@@ -37,6 +37,7 @@ from DISClib.Algorithms.Sorting import quicksort as quk
 assert cf
 import csv
 from datetime import datetime
+from collections import Counter
 
 
 
@@ -99,13 +100,13 @@ def newSkill(name, level, title):
    skill["title"] = title
    return skill
 
-def newEmployment_type(type, title, currency_salary, salary_from, salary_to):
+def newEmployment_type(type, id, currency_salary, salary_from, salary_to):
    """
-   Esta estructura almancena los jobs. "type", "title", "currency_salary", "salary_from", "salary_to"
+   Esta estructura almancena los jobs. "type", "id", "currency_salary", "salary_from", "salary_to"
    """
-   employment_type = {"type": "", "title": "", "currency_salary": "", "salary_from": "", "salary_to": ""}
+   employment_type = {"type": "", "id": "", "currency_salary": "", "salary_from": "", "salary_to": ""}
    employment_type["type"] = type
-   employment_type["title"] = title
+   employment_type["id"] = id
    employment_type["currency_salary"] = currency_salary
    employment_type["salary_from"] = salary_from
    employment_type["salary_to"] = salary_to
@@ -144,7 +145,7 @@ def addEmployment_type(offers, employment_type):
    """
    Adiciona un employment_type "type", "title", "currency_salary", "salary_from", "salary_to"
    """
-   t = newEmployment_type(employment_type["type"], employment_type["title"], employment_type["currency_salary"], employment_type["salary_from"], employment_type["salary_to"])
+   t = newEmployment_type(employment_type["type"], employment_type["id"], employment_type["currency_salary"], employment_type["salary_from"], employment_type["salary_to"])
    lt.add_last(offers["employments_types"], t)
    return offers
 
@@ -176,11 +177,8 @@ def sortJobs(offers):
     """
     Ordena los Jobs
     """
-    # toma la lista jobs
     jobs = offers["jobs"]
-    # ordena la lista de jobs
     sorted_list = lt.shell_sort(jobs, compareValue)
-    # actualiza la lista de libros del catalogo
     offers["jobs"] = sorted_list
     return sorted_list
 
@@ -194,11 +192,9 @@ def sortJobsF(offers):
     """
     Ordena los Jobs
     """
-    # toma la lista jobs
-    jobs = offers["jobs"]
-    # ordena la lista de jobs
-    sorted_list = lt.shell_sort(jobs, compareValueF)
-    # actualiza la lista de libros del catalogo
+    
+    jobs = offers["jobs"]   
+    sorted_list = lt.shell_sort(jobs, compareValueF)  
     offers["jobs"] = sorted_list
     return sorted_list
 
@@ -210,11 +206,35 @@ def compareValueF(job1, job2):
         return job1["company_name"] < job2["company_name"]
     else:
         return job1["published_at"] < job2["published_at"]
+    
+def ordenar_por_ofertas_y_nombre(offers, lista):
+   
+
+    pass
+
+
+ 
+def unir_listas_por_llave(offers,lista1, llave):
+    employments_types= offers["employments_types"]
+    
+    diccionario_lista1 = {elemento[llave]: elemento for elemento in lista1["elementos"]}
+    diccionario_lista2 = {elemento[llave]: elemento for elemento in employments_types["elementos"]}
+
+    
+    llaves_comunes = set(diccionario_lista1.keys()) & set(diccionario_lista2.keys())
+
+    
+    lista_unida = []
+    for llave_comun in llaves_comunes:
+        elemento_combinado = {**diccionario_lista1[llave_comun], **diccionario_lista2[llave_comun]}
+        lista_unida.append(elemento_combinado)
+
+    return lista_unida
 
 
 def filterbyCountryLevel(offers, country, level):
     jobs = offers["jobs"]   
-    filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
+    filtered_offers = lt.new_list()  
     filtered_offers_level = lt.new_list()
     
     for i in jobs["elementos"]:
@@ -229,7 +249,7 @@ def filterbyCountryLevel(offers, country, level):
 
 def filterbyCountry(offers, country):
     jobs = offers["jobs"]   
-    filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
+    filtered_offers = lt.new_list()  
     
     for i in jobs["elementos"]:
         if i["country_code"] == country:
@@ -240,7 +260,7 @@ def filterbyCountry(offers, country):
 
 def filterbyDateRange(offers, filter, fecha_inicial, fecha_final):
     jobs = offers["jobs"]   
-    filtered_offers = lt.new_list()  # Create a new list to store filtered jobs
+    filtered_offers = lt.new_list()  
   
     fecha_inicial = fecha_inicial.replace(tzinfo=None)
     fecha_final = fecha_final.replace(tzinfo=None)
@@ -255,45 +275,45 @@ def filterbyDateRange(offers, filter, fecha_inicial, fecha_final):
     return filtered_offers
 
 def filter_unique_by_attribute(offers, filter):
-    unique_values = set()  # Initialize an empty set to store unique values
-    filtered_list = lt.new_list()    # Initialize an empty list to store filtered dictionaries
+    unique_values = set()  
+    filtered_list = lt.new_list()    
     
     for item in filter["elementos"]:
         company_name = item["company_name"]
         if company_name not in unique_values:
-            unique_values.add(company_name)  # Add the unique value to the set
+            unique_values.add(company_name)  
             lt.add_last(filtered_list, item)
     
     return filtered_list
 
 def filter_unique_by_city(offers, filter):
-    unique_values = set()  # Initialize an empty set to store unique values
-    filtered_list = lt.new_list()    # Initialize an empty list to store filtered dictionaries
+    unique_values = set() 
+    filtered_list = lt.new_list()    
     
     for item in filter["elementos"]:
         city = item["city"]
         if city not in unique_values:
-            unique_values.add(city)  # Add the unique value to the set
+            unique_values.add(city)  
             lt.add_last(filtered_list, item)
     
     return filtered_list
 
 def Count_city(offers, filter):
-    unique_cities = set()  # Initialize an empty set to store unique cities
-    filtered_list = lt.new_list()  # Initialize an empty list to store filtered dictionaries
+    unique_cities = set()  
+    filtered_list = lt.new_list()  
     Count_city = lt.new_list()
 
     for item in filter["elementos"]:
-        city = item.get("city")  # Use get() method to avoid KeyError
+        city = item.get("city") 
         if city is not None and city not in unique_cities:
-            unique_cities.add(city)  # Add the unique city to the set
+            unique_cities.add(city) 
             lt.add_last(filtered_list, item)
             lt.add_last(Count_city, {"ciudad": city, "conteo": 0})
 
     for i in filter["elementos"]:
-        city = i.get("city")  # Use get() method to avoid KeyError
+        city = i.get("city")  
         if city is not None:
-            # Increment the count for the corresponding city in Count_city
+            
             for count_item in Count_city["elementos"]:
                 if count_item["ciudad"] == city:
                     count_item["conteo"] += 1
@@ -308,88 +328,6 @@ def new_data(id, info):
     Crea una nueva estructura para modelar los datos
     """
     #TODO: Crear la función para estructurar los datos
-    pass
-
-
-# Funciones de consulta
-
-def get_data(data_structs, id):
-    """
-    Retorna un dato a partir de su ID
-    """
-    #TODO: Crear la función para obtener un dato de una lista
-    pass
-
-
-def data_size(data_structs):
-    """
-    Retorna el tamaño de la lista de datos
-    """
-    #TODO: Crear la función para obtener el tamaño de una lista
-    pass
-
-
-def req_1(data_structs):
-    """
-    Función que soluciona el requerimiento 1
-    """
-    # TODO: Realizar el requerimiento 1
-    pass
-
-
-def req_2(data_structs):
-    """
-    Función que soluciona el requerimiento 2
-    """
-    # TODO: Realizar el requerimiento 2
-    pass
-
-
-def req_3(data_structs):
-    """
-    Función que soluciona el requerimiento 3
-    """
-    # TODO: Realizar el requerimiento 3
-    pass
-
-
-def req_4(data_structs):
-    """
-    Función que soluciona el requerimiento 4
-    """
-    # TODO: Realizar el requerimiento 4
-    pass
-
-
-def req_5(data_structs):
-    """
-    Función que soluciona el requerimiento 5
-    """
-    # TODO: Realizar el requerimiento 5
-    pass
-
-
-def req_6(data_structs):
-    """
-    Función que soluciona el requerimiento 6
-    """
-    # TODO: Realizar el requerimiento 6
-    pass
-
-
-def req_7(data_structs):
-    """
-    Función que soluciona el requerimiento 7
-    """
-    # TODO: Realizar el requerimiento 7
-    pass
-
-
-def req_8(data_structs):
-    """
-    Función que soluciona el requerimiento 8
-    """
-    # TODO: Realizar el requerimiento 8
     pass
 
 
